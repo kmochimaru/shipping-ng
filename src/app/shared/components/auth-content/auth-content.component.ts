@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
@@ -6,7 +6,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
   templateUrl: './auth-content.component.html',
   styleUrls: ['./auth-content.component.scss']
 })
-export class AuthContentComponent implements OnInit, ngOnDestroy {
+export class AuthContentComponent implements OnInit, OnDestroy {
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -14,11 +16,6 @@ export class AuthContentComponent implements OnInit, ngOnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  mobileQuery: MediaQueryList;
-
-  private _mobileQueryListener: () => void;
-
-  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   ngOnInit(): void {
 
   }
