@@ -6,9 +6,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthContentComponent } from './components/auth-content/auth-content.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AuthContentComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatSidenavModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    AuthContentComponent
   ]
 })
 export class SharedModule { }

@@ -3,10 +3,12 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
+import { UserListComponent } from './pages/user-list/user-list.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
