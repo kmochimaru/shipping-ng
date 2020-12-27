@@ -1,2 +1,16 @@
-<p>login works!</p>
-<button mat-raised-button color="primary">Primary</button>
+<mat-card>
+    <form [formGroup]="form" (submit)="onLogin()">
+        <h1>Sign In With Username</h1>
+        <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        &nbsp;
+        <button mat-raised-button type="submit" color="primary">Sign In</button>
+    </form>
+</mat-card>
