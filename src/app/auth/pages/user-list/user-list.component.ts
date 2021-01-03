@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  data: any;
+  displayedColumns = ['index', 'username', 'user_avatar'];
 
   constructor(
     private _usersService: UsersService
@@ -14,7 +16,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this._usersService.getUsers().subscribe(response => {
-      console.log(response);
+      this.data = response;
     });
   }
 
