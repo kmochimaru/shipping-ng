@@ -10,7 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 import { AuthContentComponent } from './components/auth-content/auth-content.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { AuthContentComponent } from './components/auth-content/auth-content.com
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatSidenavModule,
@@ -28,12 +31,14 @@ import { AuthContentComponent } from './components/auth-content/auth-content.com
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatSidenavModule,
@@ -42,7 +47,8 @@ import { AuthContentComponent } from './components/auth-content/auth-content.com
     AuthContentComponent,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ]
 })
 export class SharedModule { }

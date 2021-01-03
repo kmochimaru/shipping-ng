@@ -1,3 +1,4 @@
+import { UsersService } from './services/users.service';
 import { SharedModule } from './../shared/shared.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,9 @@ import { UserListComponent } from './pages/user-list/user-list.component';
     CommonModule,
     AuthRoutingModule,
     SharedModule,
+  ],
+  providers: [
+    UsersService
   ]
 })
 export class AuthModule { }
