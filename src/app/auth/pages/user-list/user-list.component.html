@@ -1,4 +1,6 @@
 <app-auth-content>
+    <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.USER_FORM]" color="primary">เพิ่ม</a>
+
     <table mat-table [dataSource]="data" class="mat-elevation-z8">
         <ng-container matColumnDef="index">
             <th mat-header-cell *matHeaderCellDef> No. </th>

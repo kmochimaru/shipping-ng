@@ -5,11 +5,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { UserListComponent } from './pages/user-list/user-list.component';
+import { UserFormComponent } from './pages/user-form/user-form.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UserListComponent
+    UserListComponent,
+    UserFormComponent
   ],
   imports: [
     CommonModule,
