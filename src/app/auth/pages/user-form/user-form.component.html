@@ -1,1 +1,25 @@
-<p>user-form works!</p>
+<app-auth-content>
+    <form [formGroup]="form" class="example-form" (submit)="onSubmit()">
+        <mat-form-field class="example-full-width">
+            <mat-label>ชื่อผู้ใช้</mat-label>
+            <input matInput formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>รหัสผ่าน</mat-label>
+            <input matInput formControlName="password">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>เบอร์โทร</mat-label>
+            <input matInput formControlName="user_phone_number">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>อีเมล</mat-label>
+            <input matInput formControlName="user_email">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">บันทึก</button>
+    </form>
+</app-auth-content>
