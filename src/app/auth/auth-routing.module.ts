@@ -8,7 +8,12 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: AUTH_URL.DASHBOARD, component: DashboardComponent },
   { path: AUTH_URL.USER_LIST, component: UserListComponent },
-  { path: AUTH_URL.USER_FORM, component: UserFormComponent }
+  {
+    path: AUTH_URL.USER_FORM, children: [
+      { path: '', component: UserFormComponent },
+      { path: ':id', component: UserFormComponent }
+    ]
+  }
 ];
 
 @NgModule({

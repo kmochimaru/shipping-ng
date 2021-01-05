@@ -1,3 +1,4 @@
+import { UserModel } from './../../../models/user.model';
 import { AUTH_URL } from './../../auth-url';
 import { APP_URL } from './../../../app-url';
 import { UsersService } from './../../services/users.service';
@@ -9,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  data: any;
-  displayedColumns = ['index', 'username', 'user_avatar'];
+  data: UserModel[];
+  displayedColumns = ['index', 'username', 'user_avatar', 'action'];
   APP_URL = APP_URL;
   AUTH_URL = AUTH_URL;
 

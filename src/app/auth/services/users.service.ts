@@ -1,3 +1,4 @@
+import { UserModel } from './../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -13,11 +14,15 @@ export class UsersService {
     return this._http.get('http://localhost:3000/api/v1/users');
   }
 
-  create(model: any): Observable<any> {
+  findOne(id: number): Observable<any> {
+    return this._http.get(`http://localhost:3000/api/v1/users/${id}`);
+  }
+
+  create(model: UserModel): Observable<any> {
     return this._http.post('http://localhost:3000/api/v1/users', model);
   }
 
-  update(id: number, model: any): Observable<any> {
+  update(id: number, model: UserModel): Observable<any> {
     return this._http.put(`http://localhost:3000/api/v1/users/${id}`, model);
   }
 
