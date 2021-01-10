@@ -3,27 +3,29 @@
 
     <table mat-table [dataSource]="data" class="mat-elevation-z8">
         <ng-container matColumnDef="index">
-            <th mat-header-cell *matHeaderCellDef> ลำดับ. </th>
-            <td mat-cell *matCellDef="let element; let i = index"> {{ i+1 }} </td>
+            <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ลำดับ. </th>
+            <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element; let i = index"> {{ i+1 }}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="username">
-            <th mat-header-cell *matHeaderCellDef> ชื่อผู้ใช้ </th>
-            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ชื่อผู้ใช้ </th>
+            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.username}} </td>
         </ng-container>
 
         <ng-container matColumnDef="user_avatar">
-            <th mat-header-cell *matHeaderCellDef> รูป </th>
-            <td mat-cell *matCellDef="let element"> {{element.user_avatar}} </td>
+            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> รูป </th>
+            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.user_avatar}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> จัดการ </th>
-            <td mat-cell *matCellDef="let element">
+            <th fxFlex="20" fxLayoutAlign="center center" mat-header-cell *matHeaderCellDef> จัดการ </th>
+            <td fxFlex="20" fxLayoutAlign="center center" mat-cell *matCellDef="let element">
                 <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.USER_FORM, element.user_id]">
                     <mat-icon>edit</mat-icon>
                 </a>
-                <button mat-flat-button>
+                <button (click)="onConfirm(element.user_id)" mat-flat-button>
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
