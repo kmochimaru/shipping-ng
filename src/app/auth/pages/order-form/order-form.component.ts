@@ -41,15 +41,27 @@ export class OrderFormComponent implements OnInit {
     });
   }
 
-  createItemForm(orderItem: OrderItemModel): FormGroup {
-    return this._formBuilder.group({
-      order_item_id: [],
-      order_item_product: [orderItem.order_item_product, Validators.required],
-      order_item_type: [orderItem.order_item_type, Validators.required],
-      order_item_qty: [orderItem.order_item_qty, Validators.required],
-      order_item_unit: [orderItem.order_item_unit, Validators.required],
-      order_item_price: [orderItem.order_item_price, Validators.required],
-    });
+  createItemForm(orderItem?: OrderItemModel): FormGroup {
+    if (orderItem === undefined) {
+      return this._formBuilder.group({
+        order_item_id: [],
+        order_item_product: ['', Validators.required],
+        order_item_type: ['', Validators.required],
+        order_item_qty: ['', Validators.required],
+        order_item_unit: ['', Validators.required],
+        order_item_price: ['', Validators.required],
+      });
+    } else {
+      return this._formBuilder.group({
+        order_item_id: [],
+        order_item_product: [orderItem.order_item_product, Validators.required],
+        order_item_type: [orderItem.order_item_type, Validators.required],
+        order_item_qty: [orderItem.order_item_qty, Validators.required],
+        order_item_unit: [orderItem.order_item_unit, Validators.required],
+        order_item_price: [orderItem.order_item_price, Validators.required],
+      });
+    }
+
   }
 
   get ordersItemArray(): FormArray {
