@@ -1,3 +1,4 @@
+import { OrdersService } from './services/orders.service';
 import { UsersService } from './services/users.service';
 import { SharedModule } from './../shared/shared.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -6,12 +7,16 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserFormComponent } from './pages/user-form/user-form.component';
+import { OrderListComponent } from './pages/order-list/order-list.component';
+import { OrderFormComponent } from './pages/order-form/order-form.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     UserListComponent,
-    UserFormComponent
+    UserFormComponent,
+    OrderListComponent,
+    OrderFormComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +24,8 @@ import { UserFormComponent } from './pages/user-form/user-form.component';
     SharedModule,
   ],
   providers: [
-    UsersService
+    UsersService,
+    OrdersService
   ]
 })
 export class AuthModule { }

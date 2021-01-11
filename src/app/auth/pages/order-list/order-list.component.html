@@ -1,0 +1,40 @@
+<app-auth-content>
+    <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.ORDER_FORM]" color="primary">เพิ่ม</a>
+
+    <table mat-table [dataSource]="data" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+            <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ลำดับ. </th>
+            <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element; let i = index"> {{ i+1 }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_code">
+            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> รหัส </th>
+            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.order_code}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_contact_name">
+            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ชื่อ </th>
+            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                {{element.order_contact_name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th fxFlex="20" fxLayoutAlign="center center" mat-header-cell *matHeaderCellDef> จัดการ </th>
+            <td fxFlex="20" fxLayoutAlign="center center" mat-cell *matCellDef="let element">
+                <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.USER_FORM, element.order_id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                <button (click)="onConfirm(element.order_id)" mat-flat-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</app-auth-content>
