@@ -4,12 +4,266 @@ table {
     width: 100%;
 }
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
+.w-100 {
     width: 100%;
 }
 
-.example-full-width {
-    width: 100%;
+.text-center {
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-end {
+    text-align: end;
+}
+
+
+// Space Layout
+@mixin margin($margin) {
+    @if length($margin)==1 {
+        margin: $margin + px;
+        margin: $margin/10 + rem;
+    }
+
+    @if length($margin)==2 {
+        margin: nth($margin, 1) + px nth($margin, 2) + px;
+        margin: nth($margin, 1) * 0.1 + rem nth($margin, 2) * 0.1 + rem;
+    }
+
+    @if length($margin)==3 {
+        margin: nth($margin, 1) + px nth($margin, 2) + px nth($margin, 3) + px;
+        margin: nth($margin, 1) * 0.1 + rem nth($margin, 2) * 0.1 + rem nth($margin, 3) * 0.1 + rem;
+    }
+
+    @if length($margin)==4 {
+        margin: nth($margin, 1) + px nth($margin, 2) + px nth($margin, 3) + px nth($margin, 4) + px;
+        margin: nth($margin, 1) * 0.1 + rem nth($margin, 2) * 0.1 + rem nth($margin, 3) * 0.1 + rem nth($margin, 4) * 0.1 + rem;
+    }
+}
+
+@mixin margin-top($margin) {
+    margin-top: $margin + px;
+    margin-top: $margin/10 + rem;
+}
+
+@mixin margin-right($margin) {
+    margin-right: $margin + px;
+    margin-right: $margin/10 + rem;
+}
+
+@mixin margin-bottom($margin) {
+    margin-bottom: $margin + px;
+    margin-bottom: $margin/10 + rem;
+}
+
+@mixin margin-left($margin) {
+    margin-left: $margin + px;
+    margin-left: $margin/10 + rem;
+}
+
+@mixin padding($padding) {
+    @if length($padding)==1 {
+        padding: $padding + px;
+        padding: $padding/10 + rem;
+    }
+
+    @if length($padding)==2 {
+        padding: nth($padding, 1) + px nth($padding, 2) + px;
+        padding: nth($padding, 1) * 0.1 + rem nth($padding, 2) * 0.1 + rem;
+    }
+
+    @if length($padding)==3 {
+        padding: nth($padding, 1) + px nth($padding, 2) + px nth($padding, 3) + px;
+        padding: nth($padding, 1) * 0.1 + rem nth($padding, 2) * 0.1 + rem nth($padding, 3) * 0.1 + rem;
+    }
+
+    @if length($padding)==4 {
+        padding: nth($padding, 1) + px nth($padding, 2) + px nth($padding, 3) + px nth($padding, 4) + px;
+        padding: nth($padding, 1) * 0.1 + rem nth($padding, 2) * 0.1 + rem nth($padding, 3) * 0.1 + rem nth($padding, 4) * 0.1 + rem;
+    }
+}
+
+@mixin padding-top($padding) {
+    padding-top: $padding + px;
+    padding-top: $padding/10 + rem;
+}
+
+@mixin padding-right($padding) {
+    padding-right: $padding + px;
+    padding-right: $padding/10 + rem;
+}
+
+@mixin padding-bottom($padding) {
+    padding-bottom: $padding + px;
+    padding-bottom: $padding/10 + rem;
+}
+
+@mixin padding-left($padding) {
+    padding-left: $padding + px;
+    padding-left: $padding/10 + rem;
+}
+
+// Padding 1-4
+.p-1 {
+    @include padding(1);
+}
+
+.p-2 {
+    @include padding(2);
+}
+
+.p-3 {
+    @include padding(3);
+}
+
+.p-4 {
+    @include padding(4);
+}
+
+.pt-1 {
+    @include padding-top(1);
+}
+
+.pt-2 {
+    @include padding-top(2);
+}
+
+.pt-3 {
+    @include padding-top(3);
+}
+
+.pt-4 {
+    @include padding-top(4);
+}
+
+.pr-1 {
+    @include padding-right(1);
+}
+
+.pr-2 {
+    @include padding-right(2);
+}
+
+.pr-3 {
+    @include padding-right(3);
+}
+
+.pr-4 {
+    @include padding-right(4);
+}
+
+.pl-1 {
+    @include padding-left(1);
+}
+
+.pl-2 {
+    @include padding-left(2);
+}
+
+.pl-3 {
+    @include padding-left(3);
+}
+
+.pl-4 {
+    @include padding-left(4);
+}
+
+.pb-1 {
+    @include padding-bottom(1);
+}
+
+.pb-2 {
+    @include padding-bottom(2);
+}
+
+.pb-3 {
+    @include padding-bottom(3);
+}
+
+.pb-4 {
+    @include padding-bottom(4);
+}
+
+// Margin 1-4
+.m-1 {
+    @include margin(1);
+}
+
+.m-2 {
+    @include margin(2);
+}
+
+.m-3 {
+    @include margin(3);
+}
+
+.m-4 {
+    @include margin(4);
+}
+
+.mt-1 {
+    @include margin-top(1);
+}
+
+.mt-2 {
+    @include margin-top(2);
+}
+
+.mt-3 {
+    @include margin-top(3);
+}
+
+.mt-4 {
+    @include margin-top(4);
+}
+
+.mr-1 {
+    @include margin-right(1);
+}
+
+.mr-2 {
+    @include margin-right(2);
+}
+
+.mr-3 {
+    @include margin-right(3);
+}
+
+.mr-4 {
+    @include margin-right(4);
+}
+
+.ml-1 {
+    @include margin-left(1);
+}
+
+.ml-2 {
+    @include margin-left(2);
+}
+
+.ml-3 {
+    @include margin-left(3);
+}
+
+.ml-4 {
+    @include margin-left(4);
+}
+
+.mb-1 {
+    @include margin-bottom(1);
+}
+
+.mb-2 {
+    @include margin-bottom(2);
+}
+
+.mb-3 {
+    @include margin-bottom(3);
+}
+
+.mb-4 {
+    @include margin-bottom(4);
 }

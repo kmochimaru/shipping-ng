@@ -1,15 +1,19 @@
 <app-auth-content>
-    <form [formGroup]="form" class="example-form" (submit)="onSubmit()">
-        <mat-form-field class="example-full-width">
-            <mat-label>รหัส</mat-label>
-            <input matInput formControlName="order_code">
-        </mat-form-field>
+    <form [formGroup]="form" (submit)="onSubmit()">
 
-        <mat-form-field class="example-full-width">
-            <mat-label>ชื่อ</mat-label>
-            <input matInput formControlName="order_contact_name">
-        </mat-form-field>
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <mat-form-field class="w-100">
+                    <mat-label>รหัส</mat-label>
+                    <input matInput formControlName="order_code">
+                </mat-form-field>
 
+                <mat-form-field class="w-100">
+                    <mat-label>ชื่อ</mat-label>
+                    <input matInput formControlName="order_contact_name">
+                </mat-form-field>
+            </div>
+        </div>
 
         <table class="mat-table">
             <thead>
@@ -24,36 +28,44 @@
                 <tr class="mat-row" *ngFor="let item of ordersItemArray.controls; let i = index" [formGroupName]="i">
                     <td class="mat-cell"> {{ i + 1 }}. </td>
                     <td class="mat-cell">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>ชื่อสินค้า</mat-label>
                             <input matInput formControlName="order_item_product">
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>หมวดหมู่</mat-label>
                             <input matInput formControlName="order_item_type">
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>จำนวน</mat-label>
-                            <input matInput formControlName="order_item_qty">
+                            <input type="number" matInput formControlName="order_item_qty">
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>ราคาต่อหน่วย</mat-label>
-                            <input matInput formControlName="order_item_price">
+                            <input type="number" matInput formControlName="order_item_price">
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">
                         {{ ordersItemArray.controls[i].get('order_item_qty').value *
                         ordersItemArray.controls[i].get('order_item_price').value | number: '2.2-2' }}
+                        <button *ngIf="ordersItemArray.length > 1" style="position: absolute; right: 0px;" type="button"
+                            mat-icon-button color="accent" (click)="removeItem(i)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="mt-4 text-end">
+            ราคาสุทธิ {{ form.get('order_total').value | number: '2.2-2' }} บาท
+        </div>
 
         <br><br>
         <button mat-flat-button color="accent" type="button" (click)="addItem()">เพิ่มรายการ</button>
