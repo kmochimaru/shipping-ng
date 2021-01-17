@@ -1,3 +1,4 @@
+import { OrdersItemService } from './services/orders-item.service';
 import { OrdersService } from './services/orders.service';
 import { UsersService } from './services/users.service';
 import { SharedModule } from './../shared/shared.module';
@@ -25,7 +26,8 @@ import { OrderFormComponent } from './pages/order-form/order-form.component';
   ],
   providers: [
     UsersService,
-    OrdersService
+    OrdersService,
+    OrdersItemService
   ]
 })
 export class AuthModule { }

@@ -1,3 +1,4 @@
+import { OrdersItemService } from './../../services/orders-item.service';
 import { OrderItemModel } from './../../../models/order-item.model';
 import { OrderModel } from './../../../models/order.model';
 import { AUTH_URL } from './../../auth-url';
@@ -20,6 +21,7 @@ export class OrderFormComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _ordersService: OrdersService,
+    private _ordersItemService: OrdersItemService,
     private _router: Router,
     private _activateRoute: ActivatedRoute
   ) { }
@@ -37,6 +39,7 @@ export class OrderFormComponent implements OnInit {
   onInitForm(): void {
     this.form = this._formBuilder.group({
       order_code: ['', Validators.required],
+      order_start_date: [new Date(), Validators.required],
       order_contact_name: [''],
       order_contact_address: [''],
       order_contact_phonenumber: [''],
@@ -96,15 +99,19 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.valid) {
       if (!this._id) {
         this._ordersService.create(this.form.value).subscribe(response => {
-          this._router.navigate(['', APP_URL.AUTH, AUTH_URL.USER_LIST]);
+          this._router.navigate(['', APP_URL.AUTH, AUTH_URL.ORDER_LIST]);
         });
       } else {
+        for (const id of this._removeId) {
+          this._ordersItemService.delete(id).subscribe(response => { });
+        }
+
         this._ordersService.update(this._id, this.form.value).subscribe(response => {
-          this._router.navigate(['', APP_URL.AUTH, AUTH_URL.USER_LIST]);
+          this._router.navigate(['', APP_URL.AUTH, AUTH_URL.ORDER_LIST]);
         });
       }
     }
@@ -112,11 +119,15 @@ export class OrderFormComponent implements OnInit {
 
   onInitValue(id: number): void {
     this._ordersService.findOne(id).subscribe((response: OrderModel) => {
-      // console.table(response);
-      // this.form.get('ordername').setValue(response.ordername);
       for (const key of Object.keys(response)) {
         try {
-          this.form.get(key).setValue(response[key]);
+          if (key === 'orders_item') {
+            for (const item of response.orders_item) {
+              this.ordersItemArray.push(this.createItemForm(item));
+            }
+          } else {
+            this.form.get(key).setValue(response[key]);
+          }
         } catch (ex) { }
       }
     });

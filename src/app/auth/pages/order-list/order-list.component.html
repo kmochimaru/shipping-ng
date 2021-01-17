@@ -9,22 +9,36 @@
         </ng-container>
 
         <ng-container matColumnDef="order_code">
-            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> รหัส </th>
-            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.order_code}}
+            <th fxFlex="15" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> รหัส </th>
+            <td fxFlex="15" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.order_code}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_start_date">
+            <th fxFlex="15" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> วันที่ </th>
+            <td fxFlex="15" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                {{element.order_start_date | date: 'dd/MM/yyyy' }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="order_contact_name">
-            <th fxFlex="30" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ชื่อ </th>
-            <td fxFlex="30" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+            <th fxFlex="15" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> ชื่อ </th>
+            <td fxFlex="15" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
                 {{element.order_contact_name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_total">
+            <th fxFlex="15" fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef> ราคา </th>
+            <td fxFlex="15" fxLayoutAlign="end center" mat-cell *matCellDef="let element">
+                {{element.order_total | number: '2.2-2'}}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
             <th fxFlex="20" fxLayoutAlign="center center" mat-header-cell *matHeaderCellDef> จัดการ </th>
             <td fxFlex="20" fxLayoutAlign="center center" mat-cell *matCellDef="let element">
-                <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.USER_FORM, element.order_id]">
+                <a mat-flat-button [routerLink]="['', APP_URL.AUTH, AUTH_URL.ORDER_FORM, element.order_id]">
                     <mat-icon>edit</mat-icon>
                 </a>
                 <button (click)="onConfirm(element.order_id)" mat-flat-button>

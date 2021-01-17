@@ -14,7 +14,14 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class OrderListComponent implements OnInit {
   data: OrderModel[];
-  displayedColumns = ['index', 'order_code', 'order_contact_name', 'action'];
+  displayedColumns = [
+    'index',
+    'order_code',
+    'order_start_date',
+    'order_contact_name',
+    'order_total',
+    'action'
+  ];
   APP_URL = APP_URL;
   AUTH_URL = AUTH_URL;
 
@@ -51,7 +58,6 @@ export class OrderListComponent implements OnInit {
 
   onInitData(): void {
     this._ordersService.findAll().subscribe(response => {
-      console.log(response);
       this.data = response;
     });
   }

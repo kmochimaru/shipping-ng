@@ -1,5 +1,4 @@
 import { OrderItemModel } from './order-item.model';
-
 export class OrderModel {
     order_id?: number;
     order_code: string;

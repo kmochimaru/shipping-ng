@@ -13,10 +13,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthContentComponent } from './components/auth-content/auth-content.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     MatListModule,
     MatTableModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     FormsModule,
@@ -62,7 +66,8 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     MatListModule,
     MatTableModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }
