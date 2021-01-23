@@ -1,3 +1,5 @@
+import { UploadsService } from './services/uploads.service';
+import { AttachmentsService } from './services/attachments.service';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,14 +21,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 
 @NgModule({
   declarations: [
     AuthContentComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UploadFileComponent,
+    TruncateTextPipe
   ],
   entryComponents: [
     ConfirmDialogComponent
+  ],
+  providers: [
+    AttachmentsService,
+    UploadsService,
   ],
   imports: [
     CommonModule,
@@ -67,7 +77,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTableModule,
     MatDialogModule,
     MatGridListModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    UploadFileComponent,
+    TruncateTextPipe
   ]
 })
 export class SharedModule { }

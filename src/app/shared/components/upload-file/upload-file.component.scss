@@ -1,0 +1,59 @@
+section {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.dropzone-wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 7px;
+    color: rgba(0, 0, 0, 0.45);
+    position: relative;
+    height: 150px;
+}
+
+.dropzone-desc {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 28px;
+    font-size: 14px;
+}
+
+.dropzone,
+.dropzone:focus {
+    position: absolute;
+    outline: none !important;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.dropzone-wrapper:hover,
+.dropzone-wrapper.dragover {
+    background: #ecf0f5;
+}
+
+.preview-zone {
+    text-align: center;
+}
+
+.preview-zone {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 200px;
+    border: 1px solid #f4f4f4;
+    border-radius: 7px;
+}
+
+.attach-label {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+}
+
+.remove-preview {
+    width: 100%;
+}

@@ -1,0 +1,26 @@
+<section>
+    <div *ngIf="preview" class="preview-zone">
+        <div class="box-body">
+            <img width="200" [src]="preview" />
+        </div>
+        <hr>
+        <div class="d-inline">
+            <p *ngIf="attachFile" class="attach-label">
+                {{ attachFile.name | truncateText: 18 }}
+            </p>
+            <p *ngIf="previewAttachment" class="attach-label">
+                {{ previewAttachment.attach_file_name | truncateText: 18 }}
+            </p>
+            <button class="remove-preview" mat-raised-button color="accent" type="button" (click)="onRemove()">
+                ลบ
+            </button>
+        </div>
+    </div>
+    <div *ngIf="!preview" class="dropzone-wrapper">
+        <div class="dropzone-desc">
+            <mat-icon>image</mat-icon>
+            <p>คลิกเพื่อเลือกไฟล์<br>หรือลากและวางไฟล์ลงที่นี่</p>
+        </div>
+        <input type="file" name="attach" class="dropzone" (change)="onSelectImage(attach)" #attach>
+    </div>
+</section>
