@@ -36,8 +36,13 @@
                     <td class="mat-cell"> {{ i + 1 }}. </td>
                     <td class="mat-cell">
                         <mat-form-field class="w-100">
-                            <mat-label>ชื่อสินค้า</mat-label>
-                            <input matInput formControlName="order_item_product">
+                            <mat-label>สินค้า</mat-label>
+                            <input matInput type="text" [matAutocomplete]="auto" formControlName="order_item_product">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let product of products" [value]="product.product_name">
+                                    {{product.product_name}}
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">

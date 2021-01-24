@@ -22,7 +22,7 @@
                     <input matInput formControlName="user_email">
                 </mat-form-field>
 
-                <app-upload-file></app-upload-file>
+                <app-upload-file [attachPath]="path" (attachIdEvent)="setAttachId($event)"></app-upload-file>
 
                 <button mat-flat-button color="primary" type="submit">บันทึก</button>
             </form>

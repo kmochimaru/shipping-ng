@@ -23,6 +23,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { MatNativeDateModule } from '@angular/material/core';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
     MatDialogModule,
     MatGridListModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
   exports: [
     FormsModule,
@@ -78,6 +80,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
     MatDialogModule,
     MatGridListModule,
     MatDatepickerModule,
+    MatAutocompleteModule,
     UploadFileComponent,
     TruncateTextPipe
   ]

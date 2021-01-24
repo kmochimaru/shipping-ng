@@ -1,3 +1,4 @@
+import { ProductsService } from './../../services/products.service';
 import { OrdersItemService } from './../../services/orders-item.service';
 import { OrderItemModel } from './../../../models/order-item.model';
 import { OrderModel } from './../../../models/order.model';
@@ -17,17 +18,21 @@ export class OrderFormComponent implements OnInit {
   form: FormGroup;
   private _id: number;
   private _removeId = [];
+  products: { product_name: string, product_category: string }[];
 
   constructor(
     private _formBuilder: FormBuilder,
     private _ordersService: OrdersService,
     private _ordersItemService: OrdersItemService,
     private _router: Router,
-    private _activateRoute: ActivatedRoute
+    private _activateRoute: ActivatedRoute,
+    private _productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
     this.onInitForm();
+    this.products = this._productsService.findAll();
+
     this._activateRoute.params.subscribe(params => {
       if (params.id) {
         this._id = params.id;
@@ -48,6 +53,9 @@ export class OrderFormComponent implements OnInit {
       order_total: [0, Validators.required],
       orders_item: this._formBuilder.array([])
     });
+    if (!this._id) {
+      this.addItem();
+    }
     this.form.get('orders_item').valueChanges.subscribe(ordersItem => this.sumPrice(ordersItem));
   }
 
@@ -77,11 +85,6 @@ export class OrderFormComponent implements OnInit {
   }
 
   addItem(): void {
-    const item: any = {};
-    item.order_item_price = 1000;
-    item.order_item_qty = 5;
-    item.order_item_product = '5555';
-    item.order_item_type = '5555';
     this.ordersItemArray.push(this.createItemForm());
   }
 
@@ -118,6 +121,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   onInitValue(id: number): void {
+    this.ordersItemArray.removeAt(0);
     this._ordersService.findOne(id).subscribe((response: OrderModel) => {
       for (const key of Object.keys(response)) {
         try {

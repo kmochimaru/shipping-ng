@@ -1,7 +1,7 @@
 import { environment } from '../../../../environments/environment';
 import { AttachmentModel } from '../../../models/attachment.model';
 import { AttachmentsService } from './../../services/attachments.service';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UploadsService } from '../../services/uploads.service';
 
 @Component({
@@ -21,6 +21,8 @@ export class UploadFileComponent implements OnChanges {
   attachItem: AttachmentModel;
   ENV = environment;
 
+  @Output() attachIdEvent = new EventEmitter<number>();
+
   constructor(
     private _uploads: UploadsService,
     private _attachments: AttachmentsService
@@ -30,6 +32,13 @@ export class UploadFileComponent implements OnChanges {
     // console.log(typeof changes);
     // console.log(changes);
     // console.log(JSON.stringify(changes));
+  }
+
+  @Input('attachPath')
+  set attachPath(attachPath: string) {
+    if (attachPath) {
+      this.preview = `${this.ENV.coreAPI}api/v1/${attachPath}`;
+    }
   }
 
   // tslint:disable-next-line:typedef
@@ -55,6 +64,7 @@ export class UploadFileComponent implements OnChanges {
       attach_doc_code: this.docCode ? this.docCode : null
     }).subscribe(res => {
       this.attachItem = res;
+      this.attachIdEvent.emit(this.attachItem.attach_id);
     });
   }
 

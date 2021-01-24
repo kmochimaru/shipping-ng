@@ -14,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserFormComponent implements OnInit {
   form: FormGroup;
   id: number;
+  path = '';
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -37,7 +38,10 @@ export class UserFormComponent implements OnInit {
       username: ['', Validators.required],
       password: [''],
       user_phone_number: [''],
-      user_email: ['', [Validators.required, Validators.email]]
+      user_email: ['', [Validators.required, Validators.email]],
+      attachments: this._formBuilder.group({
+        attach_id: []
+      })
     });
   }
 
@@ -57,14 +61,18 @@ export class UserFormComponent implements OnInit {
 
   onInitValue(id: number): void {
     this._usersService.findOne(id).subscribe((response: UserModel) => {
-      // console.table(response);
-      // this.form.get('username').setValue(response.username);
+      this.path = response.attachments.attach_path;
+      this.form.get('attachments').get('attach_id').setValue(response.attachments.attach_id);
       for (const key of Object.keys(response)) {
         try {
           this.form.get(key).setValue(response[key]);
         } catch (ex) { }
       }
     });
+  }
+
+  setAttachId(id: number): void {
+    this.form.get('attachments').get('attach_id').setValue(id);
   }
 
 }
