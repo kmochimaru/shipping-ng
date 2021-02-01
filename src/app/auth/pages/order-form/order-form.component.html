@@ -37,10 +37,19 @@
                     <td class="mat-cell">
                         <mat-form-field class="w-100">
                             <mat-label>สินค้า</mat-label>
-                            <input matInput type="text" [matAutocomplete]="auto" formControlName="order_item_product">
-                            <mat-autocomplete #auto="matAutocomplete">
+                            <input matInput type="text" [matAutocomplete]="productsAuto"
+                                formControlName="order_item_product">
+                            <mat-autocomplete #productsAuto="matAutocomplete">
                                 <mat-option *ngFor="let product of products" [value]="product.product_name">
-                                    {{product.product_name}}
+
+                                    <!-- <p *ngIf="product.product_category === item.get('order_item_category')?.value">
+                                   
+                                    </p> -->
+                                    <!-- {{product.product_name}} ({{ product.product_category }}) -->
+
+                                    <!-- <p *ngIf="!item.get('order_item_category').value">
+                                        {{product.product_name}} ({{ product.product_category }})
+                                    </p> -->
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
@@ -48,7 +57,13 @@
                     <td class="mat-cell">
                         <mat-form-field class="w-100">
                             <mat-label>หมวดหมู่</mat-label>
-                            <input matInput formControlName="order_item_type">
+                            <input matInput type="text" [matAutocomplete]="categoriesAuto"
+                                formControlName="order_item_type" (optionSelected)="onSelectedCategory(i)">
+                            <mat-autocomplete #categoriesAuto="matAutocomplete">
+                                <mat-option *ngFor="let category of categories" [value]="category.product_category">
+                                    {{category.product_category}}
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </td>
                     <td class="mat-cell">

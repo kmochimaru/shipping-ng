@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { OptionParams } from './../../../shared/interfaces/option-params.interface';
+import { ProductModel } from './../../../models/product.model';
 import { ProductsService } from './../../services/products.service';
 import { OrdersItemService } from './../../services/orders-item.service';
 import { OrderItemModel } from './../../../models/order-item.model';
@@ -18,7 +21,8 @@ export class OrderFormComponent implements OnInit {
   form: FormGroup;
   private _id: number;
   private _removeId = [];
-  products: { product_name: string, product_category: string }[];
+  products: ProductModel[];
+  categories: ProductModel[];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -31,7 +35,9 @@ export class OrderFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.onInitForm();
-    this.products = this._productsService.findAll();
+    this._productsService
+      .findProductCategories()
+      .subscribe(response => this.categories = response);
 
     this._activateRoute.params.subscribe(params => {
       if (params.id) {
@@ -57,6 +63,7 @@ export class OrderFormComponent implements OnInit {
       this.addItem();
     }
     this.form.get('orders_item').valueChanges.subscribe(ordersItem => this.sumPrice(ordersItem));
+    console.log(this.ordersItemArray);
   }
 
   createItemForm(orderItem?: OrderItemModel): FormGroup {
@@ -135,6 +142,14 @@ export class OrderFormComponent implements OnInit {
         } catch (ex) { }
       }
     });
+  }
+
+  onSelectedCategory(index: number): void {
+    console.log(index);
+  }
+
+  async getProducts(options?: OptionParams): Promise<ProductModel[]> {
+    return await this._productsService.findAll().toPromise<ProductModel[]>();
   }
 
 }
