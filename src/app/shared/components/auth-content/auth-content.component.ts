@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../../auth/services/auth.service';
 import { AUTH_URL } from './../../../auth/auth-url';
 import { APP_URL } from './../../../app-url';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
@@ -15,7 +17,12 @@ export class AuthContentComponent implements OnInit, OnDestroy {
   APP_URL = APP_URL;
   AUTH_URL = AUTH_URL;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private _auth: AuthService,
+    private _router: Router
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -27,6 +34,11 @@ export class AuthContentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  onLogout(): void {
+    this._auth.clearAuthenticated();
+    this._router.navigate(['', APP_URL.LOGIN]);
   }
 
 }

@@ -19,6 +19,9 @@
                 <a mat-list-item [routerLink]="['', APP_URL.AUTH, AUTH_URL.ORDER_LIST]">
                     รายการขาย
                 </a>
+                <a mat-list-item (click)="onLogout()">
+                    ออกระบบ
+                </a>
             </mat-nav-list>
         </mat-sidenav>
 

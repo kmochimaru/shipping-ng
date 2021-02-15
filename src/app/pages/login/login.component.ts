@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +30,11 @@ export class LoginComponent implements OnInit {
 
   onLogin(): void {
     if (this.form.valid) {
-      console.log(this.form);
-      this._router.navigate(['', 'auth', 'dashboard']);
+      this._auth.onLogin(this.form.value).subscribe(response => {
+        const { access_token } = response;
+        this._auth.setAuthenticated(access_token);
+        this._router.navigate(['', 'auth', 'dashboard']);
+      }, err => console.log(err.error.message));
     }
   }
 

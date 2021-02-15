@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
