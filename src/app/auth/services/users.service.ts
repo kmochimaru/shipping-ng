@@ -1,3 +1,4 @@
+import { OptionsHttpGet } from './../../shared/interfaces/options-http-get.interface';
 import { UserModel } from './../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,8 +11,8 @@ export class UsersService {
     private _http: HttpClient
   ) { }
 
-  findAll(): Observable<any> {
-    return this._http.get('http://localhost:3000/api/v1/users');
+  findAll(options: OptionsHttpGet): Observable<any> {
+    return this._http.get('http://localhost:3000/api/v1/users', options);
   }
 
   findOne(id: number): Observable<any> {

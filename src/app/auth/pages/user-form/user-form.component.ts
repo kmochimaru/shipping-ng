@@ -1,3 +1,5 @@
+import { UniqueUserValidatorService } from './../../services/unique-user-validator.service';
+import { HttpParams } from '@angular/common/http';
 import { UserModel } from './../../../models/user.model';
 import { AUTH_URL } from './../../auth-url';
 import { APP_URL } from './../../../app-url';
@@ -15,15 +17,18 @@ export class UserFormComponent implements OnInit {
   form: FormGroup;
   id: number;
   path = '';
+  params = new HttpParams();
 
   constructor(
     private _formBuilder: FormBuilder,
     private _usersService: UsersService,
     private _router: Router,
-    private _activateRoute: ActivatedRoute
+    private _activateRoute: ActivatedRoute,
+    private _uniqueUserValidator: UniqueUserValidatorService
   ) { }
 
   ngOnInit(): void {
+
     this.onInitForm();
     this._activateRoute.params.subscribe(params => {
       if (params.id) {
@@ -35,13 +40,25 @@ export class UserFormComponent implements OnInit {
 
   onInitForm(): void {
     this.form = this._formBuilder.group({
-      username: ['', Validators.required],
+      username: [
+        '',
+        [
+          Validators.required
+        ],
+        [
+          this._uniqueUserValidator.existingUsernameValidator()
+        ]
+      ],
       password: [''],
       user_phone_number: [''],
       user_email: ['', [Validators.required, Validators.email]],
       attachments: this._formBuilder.group({
         attach_id: []
       })
+    });
+
+    this.form.get('username').valueChanges.subscribe((value) => {
+      console.log(value);
     });
   }
 

@@ -1,3 +1,4 @@
+import { OptionsHttpGet } from './../../../shared/interfaces/options-http-get.interface';
 import { CONFIRM_DIALOG_STATUS } from './../../../shared/enums/confirm-dialog-status.enum';
 import { ConfirmDialogComponent } from './../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { UserModel } from './../../../models/user.model';
@@ -6,6 +7,7 @@ import { APP_URL } from './../../../app-url';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-list',
@@ -17,6 +19,7 @@ export class UserListComponent implements OnInit {
   displayedColumns = ['index', 'username', 'user_avatar', 'action'];
   APP_URL = APP_URL;
   AUTH_URL = AUTH_URL;
+  params = new HttpParams();
 
   constructor(
     private _usersService: UsersService,
@@ -49,8 +52,8 @@ export class UserListComponent implements OnInit {
     this._usersService.delete(id).subscribe(response => this.onInitData());
   }
 
-  onInitData(): void {
-    this._usersService.findAll().subscribe(response => {
+  onInitData(options?: OptionsHttpGet): void {
+    this._usersService.findAll({ params: this.params }).subscribe(response => {
       this.data = response;
     });
   }

@@ -1,3 +1,4 @@
+import { UniqueUserValidatorService } from './services/unique-user-validator.service';
 import { AuthService } from './services/auth.service';
 import { ProductsService } from './services/products.service';
 import { OrdersItemService } from './services/orders-item.service';
@@ -29,6 +30,7 @@ import { OrderFormComponent } from './pages/order-form/order-form.component';
   providers: [
     AuthService,
     UsersService,
+    UniqueUserValidatorService,
     OrdersService,
     OrdersItemService,
     ProductsService

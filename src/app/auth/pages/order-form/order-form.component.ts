@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs';
-import { OptionParams } from './../../../shared/interfaces/option-params.interface';
+import { OptionsHttpGet } from './../../../shared/interfaces/options-http-get.interface';
 import { ProductModel } from './../../../models/product.model';
 import { ProductsService } from './../../services/products.service';
 import { OrdersItemService } from './../../services/orders-item.service';
@@ -148,7 +147,7 @@ export class OrderFormComponent implements OnInit {
     console.log(index);
   }
 
-  async getProducts(options?: OptionParams): Promise<ProductModel[]> {
+  async getProducts(options?: OptionsHttpGet): Promise<ProductModel[]> {
     return await this._productsService.findAll().toPromise<ProductModel[]>();
   }
 
