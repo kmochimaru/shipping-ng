@@ -1,4 +1,5 @@
 export enum APP_URL {
     LOGIN = 'login',
-    AUTH = 'auth'
+    AUTH = 'auth',
+    UNAUTHORIZED = 'unauthorized',
 }

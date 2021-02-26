@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './../auth/interceptor/auth.interceptor';
 import { UploadsService } from './services/uploads.service';
 import { AttachmentsService } from './services/attachments.service';
 import { RouterModule } from '@angular/router';
@@ -17,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthContentComponent } from './components/auth-content/auth-content.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -38,6 +39,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   providers: [
     AttachmentsService,
     UploadsService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   imports: [
     CommonModule,
