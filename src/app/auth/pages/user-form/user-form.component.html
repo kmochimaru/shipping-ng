@@ -2,10 +2,13 @@
     <div class="row">
         <div class="col-xs-12 col-md-4">
             <form [formGroup]="form" (submit)="onSubmit()">
-                <mat-form-field class="w-100">
+
+                <mat-form-field *ngIf="!id" class="w-100">
                     <mat-label>ชื่อผู้ใช้</mat-label>
                     <input matInput formControlName="username">
                 </mat-form-field>
+
+                <div *ngIf="id">ชื่อผู้ใช้ <b>{{ form.get('username').value }}</b></div>
 
                 <mat-form-field class="w-100">
                     <mat-label>รหัสผ่าน</mat-label>
@@ -22,7 +25,8 @@
                     <input matInput formControlName="user_email">
                 </mat-form-field>
 
-                <app-upload-file [attachPath]="path" (attachIdEvent)="setAttachId($event)"></app-upload-file>
+                <app-upload-file [attachItem]="userModel?.attachments" (attachIdEvent)="setAttachId($event)">
+                </app-upload-file>
 
                 <button mat-flat-button color="primary" type="submit">บันทึก</button>
             </form>

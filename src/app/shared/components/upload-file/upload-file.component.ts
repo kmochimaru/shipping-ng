@@ -11,14 +11,10 @@ import { UploadsService } from '../../services/uploads.service';
 })
 export class UploadFileComponent implements OnChanges {
 
-  // tslint:disable-next-line:variable-name
-  private _previewAttachment: AttachmentModel;
   @Input() docCode: string;
   attachFile: File;
-  // tslint:disable-next-line:variable-name
-  private _tempPath = null;
   preview: any;
-  attachItem: AttachmentModel;
+  private _attachItem: AttachmentModel;
   ENV = environment;
 
   @Output() attachIdEvent = new EventEmitter<number>();
@@ -34,15 +30,19 @@ export class UploadFileComponent implements OnChanges {
     // console.log(JSON.stringify(changes));
   }
 
-  @Input('attachPath')
-  set attachPath(attachPath: string) {
-    if (attachPath) {
-      this.preview = `${this.ENV.coreAPI}api/v1/${attachPath}`;
+  @Input('attachItem')
+  set attachItem(attachment: AttachmentModel) {
+    this._attachItem = attachment;
+    if (this._attachItem?.attach_path) {
+      this.preview = `${this.ENV.coreAPI}api/v1/${this._attachItem.attach_path}`;
     }
   }
 
-  // tslint:disable-next-line:typedef
-  onSelectImage(input: HTMLInputElement) {
+  get attachItem(): AttachmentModel {
+    return this._attachItem;
+  }
+
+  onSelectImage(input: HTMLInputElement): void {
     if (input) {
       this.attachFile = input.files[0] as File;
       const reader = new FileReader();
@@ -54,8 +54,7 @@ export class UploadFileComponent implements OnChanges {
     }
   }
 
-  // tslint:disable-next-line:typedef
-  async onUpload() {
+  async onUpload(): Promise<void> {
     const { path } = await this._uploads.onUpload(this.attachFile, 'image');
     this._attachments.create({
       attach_file_name: this.attachFile.name,
@@ -63,37 +62,22 @@ export class UploadFileComponent implements OnChanges {
       attach_path: path,
       attach_doc_code: this.docCode ? this.docCode : null
     }).subscribe(res => {
-      this.attachItem = res;
-      this.attachIdEvent.emit(this.attachItem.attach_id);
+      this._attachItem = res;
+      this.attachIdEvent.emit(this._attachItem.attach_id);
     });
   }
 
-  // tslint:disable-next-line:typedef
-  async onRemove() {
-    const fileName = this.attachItem
-      ? this.attachItem.attach_path.split('/')
-      : this.previewAttachment.attach_path.split('/');
-    const attachId = this.attachItem ? this.attachItem.attach_id : this.previewAttachment.attach_id;
-    await this._attachments.delete(attachId).subscribe(res => { });
-    await this._uploads.onRemove(
-      'images',
-      fileName[fileName.length - 1])
-      .catch(err => console.error(err));
-    this.preview = '';
-    this.attachFile = null;
-    this.attachItem = null;
+  onRemove(): void {
+    const fileName = this._attachItem.attach_path.split('/');
+    this._attachments.delete(this._attachItem.attach_id).subscribe(res => {
+      this._uploads.onRemove(
+        'images',
+        fileName[fileName.length - 1])
+        .catch(err => console.error(err));
+      this.preview = '';
+      this.attachFile = null;
+      this._attachItem = null;
+    });
   }
 
-  @Input()
-  set previewAttachment(attachment: AttachmentModel) {
-    if (attachment) {
-      this._previewAttachment = attachment;
-      this.preview = `${this.ENV.coreAPI}api/v1/${attachment.attach_path}`;
-    }
-  }
-
-  // tslint:disable-next-line:typedef
-  get previewAttachment() {
-    return this._previewAttachment;
-  }
 }

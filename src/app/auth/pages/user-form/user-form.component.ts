@@ -16,8 +16,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserFormComponent implements OnInit {
   form: FormGroup;
   id: number;
-  path = '';
   params = new HttpParams();
+  userModel: UserModel;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -28,11 +28,13 @@ export class UserFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.onInitForm();
     this._activateRoute.params.subscribe(params => {
       if (params.id) {
         this.id = params.id;
+        this.form.get('username').clearValidators();
+        this.form.get('username').clearAsyncValidators();
+        this.form.get('password').clearValidators();
         this.onInitValue(params.id);
       }
     });
@@ -40,25 +42,13 @@ export class UserFormComponent implements OnInit {
 
   onInitForm(): void {
     this.form = this._formBuilder.group({
-      username: [
-        '',
-        [
-          Validators.required
-        ],
-        [
-          this._uniqueUserValidator.existingUsernameValidator()
-        ]
-      ],
-      password: [''],
+      username: ['', [Validators.required], [this._uniqueUserValidator.existingUsernameValidator()]],
+      password: ['', Validators.required],
       user_phone_number: [''],
       user_email: ['', [Validators.required, Validators.email]],
       attachments: this._formBuilder.group({
         attach_id: []
       })
-    });
-
-    this.form.get('username').valueChanges.subscribe((value) => {
-      console.log(value);
     });
   }
 
@@ -78,11 +68,15 @@ export class UserFormComponent implements OnInit {
 
   onInitValue(id: number): void {
     this._usersService.findOne(id).subscribe((response: UserModel) => {
-      this.path = response.attachments.attach_path;
-      this.form.get('attachments').get('attach_id').setValue(response.attachments.attach_id);
-      for (const key of Object.keys(response)) {
+      this.userModel = response;
+      if (this.userModel.attachments !== null) {
+        this.form.get('attachments').get('attach_id').setValue(this.userModel.attachments.attach_id);
+      }
+      for (const key of Object.keys(this.userModel)) {
         try {
-          this.form.get(key).setValue(response[key]);
+          if (key !== 'password') {
+            this.form.get(key).setValue(this.userModel[key]);
+          }
         } catch (ex) { }
       }
     });
