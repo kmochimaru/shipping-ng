@@ -59,6 +59,9 @@ export class UserFormComponent implements OnInit {
           this._router.navigate(['', APP_URL.AUTH, AUTH_URL.USER_LIST]);
         });
       } else {
+        if (this.form.get('password').value === '') {
+          this.form.value.password = this.userModel.password;
+        }
         this._usersService.update(this.id, this.form.value).subscribe(response => {
           this._router.navigate(['', APP_URL.AUTH, AUTH_URL.USER_LIST]);
         });
