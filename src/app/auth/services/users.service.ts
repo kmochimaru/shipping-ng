@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { OptionsHttpGet } from './../../shared/interfaces/options-http-get.interface';
 import { UserModel } from './../../models/user.model';
 import { HttpClient } from '@angular/common/http';
@@ -12,22 +13,22 @@ export class UsersService {
   ) { }
 
   findAll(options: OptionsHttpGet): Observable<any> {
-    return this._http.get('http://localhost:3000/api/v1/users', options);
+    return this._http.get(`${environment.coreAPI}api/v1/users`, options);
   }
 
   findOne(id: number): Observable<any> {
-    return this._http.get(`http://localhost:3000/api/v1/users/${id}`);
+    return this._http.get(`${environment.coreAPI}api/v1/users/${id}`);
   }
 
   create(model: UserModel): Observable<any> {
-    return this._http.post('http://localhost:3000/api/v1/users', model);
+    return this._http.post(`${environment.coreAPI}api/v1/users`, model);
   }
 
   update(id: number, model: UserModel): Observable<any> {
-    return this._http.put(`http://localhost:3000/api/v1/users/${id}`, model);
+    return this._http.put(`${environment.coreAPI}api/v1/users/${id}`, model);
   }
 
   delete(id: number): Observable<any> {
-    return this._http.delete(`http://localhost:3000/api/v1/users/${id}`);
+    return this._http.delete(`${environment.coreAPI}api/v1/users/${id}`);
   }
 }
